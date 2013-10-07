@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# establish outgoing ssh/SOCKS-secured tunnels on Mac OS X 10.7+
+# Dustin Williams, dlwilliams@deafgeeksdesign.com
+
+# calling the main script via sudo
+echo "Please magically enter your system password."
+sudo ~/.accio

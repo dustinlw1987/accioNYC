@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# establish outgoing ssh/SOCKS-secured tunnels on Mac OS X 10.7+
+# Dustin Williams, dlwilliams@deafgeeksdesign.com
+
+
+# insert an signal trap to shut down proxy
+proxy_disable()
+{
+	networksetup -setsocksfirewallproxystate Wi-Fi off
+	networksetup -setsocksfirewallproxystate Ethernet off
+	echo "\n Avada kedavra!" 
+}
+trap proxy_disable SIGHUP SIGINT SIGTERM
+
+# setting up the proxy
+networksetup -setsocksfirewallproxy Wi-Fi localhost 9999
+networksetup -setsocksfirewallproxy Ethernet localhost 9999
+networksetup -setsocksfirewallproxystate Wi-Fi on
+networksetup -setsocksfirewallproxystate Ethernet on
+
+# establishing the tunnel
+echo "Accio NYC!"
+echo "Please do not forget to CTRL-C to avada kedavra the tunnel when done!"
+ssh -ND 9999 mjk8868@deafgeeksdesign.com 2&>/dev/null
